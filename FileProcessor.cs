@@ -19,6 +19,9 @@ namespace test2
 
             fp.fileHandler = new JsonHandler();
             fp.ProcessFile(@"C:\Users\777\Desktop\test.xml");
+
+            fp.fileHandler = new JsonHandler();
+            fp.ProcessFile(@"C:\Users\777\Desktop\test.txt");
         }
     }
 
@@ -35,7 +38,14 @@ namespace test2
                 TheFileExtension = Path.GetExtension(fileName);
                 if (SupportedExtensions.Contains(TheFileExtension))
                 {
-                    DoSomeStuff(fileName);
+                    if(TheFileExtension.Contains(ValidExtensionForMethod()))
+                    {
+                        DoSomeStuff(fileName);
+                    }
+                    else
+                    {
+                        Console.WriteLine("You are trying to pass a valid file to an incorrect handler.");
+                    }
                 }
                 else
                 {
@@ -48,6 +58,8 @@ namespace test2
             }
         }
         protected abstract void DoSomeStuff(string fileName);
+
+        protected abstract string ValidExtensionForMethod();
     }
 
     public class FileProcessor
@@ -57,12 +69,12 @@ namespace test2
         public void ProcessFile(string fileName)
         {
             fileHandler.FileHandler(fileName);
-
         }
     }
 
     class HtmlHandler : AbstractFileHandler
     {
+        protected override string ValidExtensionForMethod() => ".html";
         protected override void DoSomeStuff(string fileName)
         {
             Console.WriteLine("Html file handled");
@@ -71,6 +83,7 @@ namespace test2
 
     class TextHandler : AbstractFileHandler
     {
+        protected override string ValidExtensionForMethod() => ".txt";
         protected override void DoSomeStuff(string fileName)
         {
             Console.WriteLine("Text file handled");
@@ -79,6 +92,7 @@ namespace test2
 
     class JsonHandler : AbstractFileHandler
     {
+        protected override string ValidExtensionForMethod() => ".json";
         protected override void DoSomeStuff(string fileName)
         {
             Console.WriteLine("JSON file handled");
