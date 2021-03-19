@@ -2,26 +2,32 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
-namespace test2
+namespace solutionToKasperskyTask
 {
     class Program
     {
         static void Main(string[] args)
         {
             FileProcessor fp = new FileProcessor(new HtmlHandler());
-            fp.ProcessFile(@"C:\Users\777\Desktop\test.html");
+            fp.ProcessFile(@"C:\Users\777\Desktop\test.html");              // Test for html file handling. Console should return "Html file handled".
 
             fp.fileHandler = new TextHandler();
-            fp.ProcessFile(@"C:\Users\777\Desktop\test.txt");
+            fp.ProcessFile(@"C:\Users\777\Desktop\test.txt");               // Test for text file handling. Console should return "Text file handled".
 
             fp.fileHandler = new JsonHandler();
-            fp.ProcessFile(@"C:\Users\777\Desktop\test.json");
+            fp.ProcessFile(@"C:\Users\777\Desktop\test.json");              // Test for JSON file handling. Console should return "JSON file handled".
 
             fp.fileHandler = new JsonHandler();
-            fp.ProcessFile(@"C:\Users\777\Desktop\test.xml");
+            fp.ProcessFile(@"C:\Users\777\Desktop\test.xml");               // Test for a file with unsupported extension input. Console should return 
+                                                                            // "The extension you try to work with is not supported yet." and
+                                                                            // "To work with " + TheFileExtension + " files check the Readme file"
 
-            fp.fileHandler = new JsonHandler();
-            fp.ProcessFile(@"C:\Users\777\Desktop\test.txt");
+            fp.fileHandler = new JsonHandler();                             
+            fp.ProcessFile(@"C:\Users\777\Desktop\test");               // Test for a file that does not exist. Console should return "File does not exist.".
+            
+            fp.fileHandler = new TextHandler();
+            fp.ProcessFile(@"C:\Users\777\Desktop\test.json");              // Test for valid files sent to wrong handler. Console should return 
+                                                                            // "You are trying to pass a valid file to an incorrect handler."
         }
     }
 
@@ -50,6 +56,7 @@ namespace test2
                 else
                 {
                     Console.WriteLine("The extension you try to work with is not supported yet.");
+                    Console.WriteLine("To work with " + TheFileExtension + " files check the Readme file");
                 }  
             }   
             else
