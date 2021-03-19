@@ -1,20 +1,22 @@
 # EN SolutionToKasperskyTask
-It`s a solution to Kaspersky test task.
+It is a solution to Kaspersky test task.
 
 If the console advised you to check this file to work with unsupported extension, here is s tutorial how to add handler for your extension.
 
 1. Add your extension to list "SupportedExtions".
 2. Create new class for your extension, like this below:
 
+```C#
         class *your extension*Handler : AbstractFileHandler
-    {
-        protected override string ValidExtensionForMethod() => "*your extension*";
-        protected override void DoSomeStuff(string fileName)
         {
-            Console.WriteLine("*your extension* file handled");
-            /* any needed processes*/
+                protected override string ValidExtensionForMethod() => "*your extension*";
+                protected override void DoSomeStuff(string fileName)
+                {
+                        Console.WriteLine("*your extension* file handled");
+                        /* any needed processes */
+                }
         }
-    }
+```
     
 3. Add any needed processes where it is shown.
 4. Enjoy!
